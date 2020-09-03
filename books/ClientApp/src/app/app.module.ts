@@ -38,4 +38,9 @@ defineLocale('ru', ruLocale);
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  // https://stackoverflow.com/questions/48383964/how-to-use-ngx-bootstrap-datepicker-with-frensh-version
+  constructor(private bsLocaleService: BsLocaleService) {
+    this.bsLocaleService.use('ru');
+  }
+}
