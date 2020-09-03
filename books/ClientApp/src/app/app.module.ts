@@ -16,6 +16,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 
+import { ToastaModule } from 'ngx-toasta';
+
 defineLocale('ru', ruLocale);
 
 @NgModule({
@@ -31,6 +33,7 @@ defineLocale('ru', ruLocale);
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
+    ToastaModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
