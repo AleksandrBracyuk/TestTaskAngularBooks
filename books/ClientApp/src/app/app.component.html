@@ -1,5 +1,17 @@
-<!-- <div class="pt-5 pl-2">
-  <button class="btn btn-primary" (click)="addToast()">Add Toast</button>
+<div class="d-flex justify-content-between align-items-center">
+  <div>logo</div>
+
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a routerLink="/books" routerLinkActive="active" class="nav-link ">books</a>
+    </li>
+    <li class="nav-item">
+      <a routerLink="/authors" routerLinkActive="active" class="nav-link ">authors</a>
+    </li>
+    <li role="menuitem">
+      <a routerLink="/genres" routerLinkActive="active" class="nav-link">genres</a>
+    </li>
+  </ul>
 </div>
 
-<ngx-toasta [position]="'top-left'"></ngx-toasta> -->
+<router-outlet></router-outlet>

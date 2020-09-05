@@ -1,48 +1,15 @@
-import { Component } from '@angular/core';
-import {
-  ToastaService,
-  ToastaConfig,
-  ToastOptions,
-  ToastData,
-} from 'ngx-toasta';
+import { Component, OnInit } from '@angular/core';
+import { GenerateDataService } from './shared/generate-data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  constructor(
-    private toastaService: ToastaService,
-    private toastaConfig: ToastaConfig
-  ) {
-    // Assign the selected theme name to the `theme` property of the instance of ToastaConfig.
-    // Possible values: default, bootstrap, material
-    this.toastaConfig.theme = 'material';
-  }
+export class AppComponent implements OnInit {
+  constructor(private generateDataService: GenerateDataService) {}
 
-  addToast() {
-    // Just add default Toast with title only
-    this.toastaService.default('Hi there');
-    // Or create the instance of ToastOptions
-    var toastOptions: ToastOptions = {
-      title: 'My title',
-      msg: 'The message',
-      showClose: true,
-      timeout: 5000,
-      theme: 'default',
-      onAdd: (toast: ToastData) => {
-        console.log('Toast ' + toast.id + ' has been added!');
-      },
-      onRemove: function (toast: ToastData) {
-        console.log('Toast ' + toast.id + ' has been removed!');
-      },
-    };
-    // Add see all possible types in one shot
-    this.toastaService.info(toastOptions);
-    this.toastaService.success(toastOptions);
-    this.toastaService.wait(toastOptions);
-    this.toastaService.error(toastOptions);
-    this.toastaService.warning(toastOptions);
+  ngOnInit(): void {
+    this.generateDataService.createTestData();
   }
 }

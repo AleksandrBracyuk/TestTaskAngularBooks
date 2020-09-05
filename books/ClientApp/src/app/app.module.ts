@@ -1,3 +1,4 @@
+import { GenreService } from './shared/genre.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -18,6 +19,10 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 
 import { ToastaModule } from 'ngx-toasta';
 
+import { AuthorModule } from './author/author.module';
+import { BookModule } from './book/book.module';
+import { GenreModule } from './genre/genre.module';
+
 defineLocale('ru', ruLocale);
 
 @NgModule({
@@ -34,6 +39,9 @@ defineLocale('ru', ruLocale);
     ModalModule.forRoot(),
     TabsModule.forRoot(),
     ToastaModule.forRoot(),
+    AuthorModule,
+    BookModule,
+    GenreModule
   ],
   providers: [],
   bootstrap: [AppComponent],
