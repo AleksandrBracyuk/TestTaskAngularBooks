@@ -7,5 +7,6 @@ import { BookDetailComponent } from './book-detail/book-detail.component';
 @NgModule({
   declarations: [BookListComponent, BookDetailComponent],
   imports: [CommonModule],
+  exports: [BookListComponent],
 })
-export class BookModule {}
+export class BookModule { }

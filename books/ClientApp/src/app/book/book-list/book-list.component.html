@@ -1,1 +1,58 @@
 <p>book-list works!</p>
+<div class="d-flex justify-content-between">
+  <h5>Книги</h5>
+  <div class="d-flex justify-content-end">
+    <button type="button" class="btn btn-outline-primary " (click)="refresh()" tooltip="Перечитать" placement="auto">
+      <i class="fa fa-refresh"></i>
+    </button>
+    <button type="button" class="btn btn-outline-primary" (click)="add()" tooltip="Добавить книгу" placement="auto">
+      <i class="fa fa-plus-square"></i>
+    </button>
+  </div>
+</div>
+
+<div>
+  <table class="table table-striped table-hover">
+    <tbody>
+      <tr *ngFor='let item of books | async'>
+        <td>{{item.title}}</td>
+        <td>{{item.numberPages}}</td>
+        <td>
+          <ul>
+            <li *ngFor='let g of item.genre'>
+              {{g}}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li *ngFor='let a of item.authors'>
+              {{a.name.substr(0,1)+ ". " + a.patronymic.substr(0,1) +". "+ a.surname}}
+            </li>
+          </ul>
+        </td>
+        <td>
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-primary btn-sm ml-5" (click)="edit(item.id)"
+              tooltip="Редактировать автора" placement="auto">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button type="button" class="ml-2 mr-2 btn btn-outline-primary lap-delete-btn btn-sm"
+              (click)="openDeleteModal(item, deleteModalTemplate)" tooltip="Удалить автора" placement="auto">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<ng-template #deleteModalTemplate>
+  <div class="modal-body text-center">
+    <p>Удалить автора "{{deletedItem.surname + " " + deletedItem.name+ " " + deletedItem.patronymic}} ?</p>
+    <button type="button" class="btn btn-default" (click)="confirmDelete()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="declineDelete()">No</button>
+  </div>
+</ng-template>

@@ -16,5 +16,5 @@ export class Author {
   dateBirth: Date;
 
   // Список книг
-  bookList: Book[];
+  books: Book[];
 }

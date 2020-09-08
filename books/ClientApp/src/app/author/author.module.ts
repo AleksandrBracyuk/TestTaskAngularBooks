@@ -7,6 +7,7 @@ import { AuthorDetailComponent } from './author-detail/author-detail.component';
 
 @NgModule({
   declarations: [AuthorListComponent, AuthorDetailComponent],
+  exports: [AuthorListComponent],
   imports: [CommonModule],
 })
 export class AuthorModule { }

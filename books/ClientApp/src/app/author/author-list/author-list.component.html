@@ -17,7 +17,8 @@
     <tbody>
       <tr *ngFor='let item of authors | async'>
         <td>{{item.surname + " " + item.name+ " " + item.patronymic}}</td>
-        <td>{{item.bookList.length}}</td>
+        <td>{{item.dateBirth | date:'yyyy'}}</td>
+        <td>{{item.books?item.books.length:0}}</td>
         <td>
           <div class="d-flex justify-content-end">
             <button type="button" class="btn btn-outline-primary btn-sm ml-5" (click)="edit(item.id)"

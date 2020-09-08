@@ -1,3 +1,5 @@
+import { Author } from './author';
+
 export class Book {
   id: number;
 
@@ -8,5 +10,8 @@ export class Book {
   numberPages: number;
 
   // Жанр(текст, обязательное из списка допустимых значений)
-  genre: string;
+  genre: string[];
+
+  // список авторов
+  authors: Author[];
 }

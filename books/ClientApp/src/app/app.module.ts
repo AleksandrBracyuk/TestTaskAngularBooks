@@ -22,6 +22,8 @@ import { ToastaModule } from 'ngx-toasta';
 import { AuthorModule } from './author/author.module';
 import { BookModule } from './book/book.module';
 import { GenreModule } from './genre/genre.module';
+import { GeneralComponent } from './general/general.component';
+import { GeneralModule } from './general/general.module';
 
 defineLocale('ru', ruLocale);
 
@@ -41,7 +43,8 @@ defineLocale('ru', ruLocale);
     ToastaModule.forRoot(),
     AuthorModule,
     BookModule,
-    GenreModule
+    GenreModule,
+    GeneralModule
   ],
   providers: [],
   bootstrap: [AppComponent],
