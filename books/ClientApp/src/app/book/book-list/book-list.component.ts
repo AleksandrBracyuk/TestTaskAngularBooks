@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Book } from '../../shared/book';
+import { Observable } from 'rxjs';
+import { BookService } from '../../shared/book.service';
+
 
 @Component({
   selector: 'app-book-list',
@@ -7,7 +11,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookListComponent implements OnInit {
 
-  constructor() { }
+  books: Observable<Book[]>;
+  constructor(private bookService: BookService) { }
 
   ngOnInit(): void {
   }

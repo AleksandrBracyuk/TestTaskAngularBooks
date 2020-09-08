@@ -1,106 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Author } from './author';
 import { Book } from './book';
+import { StorageService } from './storage.service';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorService {
-  constructor() { }
+  constructor(private storageService: StorageService) { }
 
   list(): Observable<Author[]> {
-    const res = new Observable<Author[]>((observer) => {
-      const authorsString = localStorage.getItem('authors');
-      const authors = JSON.parse(authorsString);
-      observer.next(authors);
-      observer.complete();
-      return { unsubscribe(): void { } };
-    });
-    return res;
+    return this.storageService.getAuthors();
   }
 
   // добавление автора
   add(author: Author): Observable<Author> {
-    const res = new Observable<Author>((observer) => {
-      let authorsString = localStorage.getItem('authors');
-      const authors = JSON.parse(authorsString);
-      // найти самую большую из всех id и к ней добавить 1
-      authors.id =
-        authors.reduce((previousValue, currentItem, index, arr) => {
-          if (previousValue > currentItem.id) { return previousValue; }
-          return currentItem.id;
-        }, 0) + 1;
-      authors.unshift(author);
-      authorsString = JSON.stringify(authors);
-      localStorage.setItem('authors', authorsString);
-
-      observer.next(author);
-      observer.complete();
-      return { unsubscribe(): void { } };
-    });
-    return res;
+    return this.storageService.addAuthor(author);
   }
 
   // редактирование автора
   edit(author: Author): Observable<Author> {
-    const res = new Observable<Author>((observer) => {
-      let authorsString = localStorage.getItem('authors');
-      const authors = JSON.parse(authorsString);
-      // найти текущего автора
-      let currentAuthor: Author;
-      for (const a of authors) {
-        if (a.id === author.id) {
-          currentAuthor = a;
-          break;
-        }
-      }
-      if (!currentAuthor) {
-        observer.error('Автор с id = ${author.id} не найден.');
-      } else {
-        currentAuthor.surname = author.surname;
-        currentAuthor.name = author.name;
-        currentAuthor.patronymic = author.patronymic;
-        currentAuthor.dateBirth = author.dateBirth;
-        currentAuthor.bookList = author.bookList;
-      }
-
-      authorsString = JSON.stringify(authors);
-      localStorage.setItem('authors', authorsString);
-
-      observer.next(currentAuthor);
-      observer.complete();
-      return { unsubscribe() { } };
-    });
-    return res;
+    return this.storageService.editAuthor(author);
   }
 
   // удаление автора
   delete(author: Author): Observable<Author> {
-    const res = new Observable<Author>((observer) => {
-      let authorsString = localStorage.getItem('authors');
-      const authors = JSON.parse(authorsString);
-      // найти текущего автора
-      let deletedIndex: number;
-      for (let i = 0; i < authors.length; i++) {
-        if (authors[i].id === author.id) {
-          deletedIndex = i;
-          break;
-        }
-      }
-      if (!deletedIndex) {
-        observer.error('Автор с id = ${author.id} не найден.');
-      } else {
-        authors.splice(deletedIndex, 1);
-      }
-
-      authorsString = JSON.stringify(authors);
-      localStorage.setItem('authors', authorsString);
-
-      observer.next(author);
-      observer.complete();
-      return { unsubscribe() { } };
-    });
-    return res;
+    return this.storageService.deleteAuthor(author);
   }
 }

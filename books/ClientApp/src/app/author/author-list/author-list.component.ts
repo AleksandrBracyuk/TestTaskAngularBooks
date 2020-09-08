@@ -1,34 +1,15 @@
 import { Author } from '../../shared/author';
 import { AuthorService } from '../../shared/author.service';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+
 import {
   Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-  AfterViewInit,
+  OnInit, TemplateRef
 } from '@angular/core';
 import {
   Observable,
-  fromEvent,
-  interval,
-  merge,
-  concat,
-  noop,
-  NEVER,
-  of,
 } from 'rxjs';
-import {
-  map,
-  mapTo,
-  scan,
-  startWith,
-  switchMap,
-  mergeMap,
-  tap,
-  publish,
-  refCount,
-} from 'rxjs/operators';
-import { buffer, filter, throttleTime } from 'rxjs/operators';
 
 
 @Component({
@@ -39,13 +20,44 @@ import { buffer, filter, throttleTime } from 'rxjs/operators';
 export class AuthorListComponent implements OnInit {
 
   authors: Observable<Author[]>;
-  data: Observable<Date>;
+  deletedItem: Author;
+  modalRef: BsModalRef;
 
-  constructor(private authorService: AuthorService) { }
+  constructor(private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private authorService: AuthorService,
+    private modalService: BsModalService) { }
 
   ngOnInit(): void {
+    this.refresh();
+  }
+
+  refresh(): void {
     this.authors = this.authorService.list();
-    this.data = NEVER.pipe(startWith(new Date(2020, 0, 1, 0, 0, 0)));
+  }
+
+  add(): void {
+    this.router.navigate(['/new-author']);
+  }
+  edit(id: number): void {
+    this.router.navigate(['/author', id]);
+  }
+
+  openDeleteModal(item: Author, template: TemplateRef<any>): void {
+    this.deletedItem = item;
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+  confirmDelete(): void {
+    this.modalRef.hide();
+    this.delete(this.deletedItem);
+  }
+  declineDelete(): void {
+    this.modalRef.hide();
+    this.deletedItem = null;
+  }
+  delete(author: Author): void {
+    this.authorService.delete(author);
+    this.refresh();
   }
 
 }

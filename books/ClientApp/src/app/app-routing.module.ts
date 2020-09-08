@@ -1,3 +1,4 @@
+import { AuthorDetailComponent } from './author/author-detail/author-detail.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BookListComponent } from './book/book-list/book-list.component';
@@ -11,7 +12,11 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   { path: 'books', component: BookListComponent },
+
   { path: 'authors', component: AuthorListComponent },
+  { path: 'new-author', component: AuthorDetailComponent },
+  { path: 'author/:id', component: AuthorDetailComponent },
+
   { path: 'genres', component: GenreListComponent },
 ];
 
